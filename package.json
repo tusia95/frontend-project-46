@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "frontend project 2",
-  "main": "index.js",
+  "main": "gendiff.js",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
