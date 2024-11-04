@@ -5,11 +5,7 @@ import fs from 'node:fs';
 
 
 const getAbsoluteFilePath = (relativePath) => {
-  return path.resolve(getCurrentWorkingDirectory(), relativePath);
-}
-
-const getCurrentWorkingDirectory = () => {
-  return cwd();
+  return path.resolve(cwd(), relativePath);
 }
 
 const readFile = (absolutePath) => {
