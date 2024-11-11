@@ -19,7 +19,7 @@ jobs:
           node-version: 20
       - run: npm ci
       #- run: make lint
-      - run: make tests
+      - run: make test
   coverage:
     needs: [ check ]
     name: coverage
