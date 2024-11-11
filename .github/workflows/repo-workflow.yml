@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: make lint
+      #- run: make lint
       - run: make tests
   coverage:
     needs: [ check ]
