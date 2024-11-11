@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { EOL } from 'node:os'
 
 const genDiff = (obj1, obj2) => {
   const compareResult = [];

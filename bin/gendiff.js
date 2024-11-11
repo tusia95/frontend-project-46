@@ -17,7 +17,7 @@ program.option('-v, --version', 'output the version number')
 
     const absolutePath2 = getAbsoluteFilePath(filepath2);
     const obj2 = JSON.parse(readFile(absolutePath2));
-    console.log(createView(genDiff(obj1, obj2)));
+    console.log(genDiff(obj1, obj2));
 });
 
 program.parse(process.argv);
