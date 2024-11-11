@@ -5,7 +5,22 @@ on: push
 jobs:
   # build – произвольно выбранное имя задания
   # их может быть больше одного
-  check:
+  lint:
+    # операционная система для работы воркфлоу
+    runs-on: ubuntu-latest
+    steps: # список шагов, которые надо выполнить
+      - uses: actions/checkout@v4
+      # экшен — выполняет какую-то задачу
+      # checkout — клонирует репозиторий
+      # run – произвольная bash-команда
+      # ls -la выведет содержимое текущего репозитория
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      #- run: make lint
+      - run: make lint
+  test:
     # операционная система для работы воркфлоу
     runs-on: ubuntu-latest
     steps: # список шагов, которые надо выполнить
@@ -21,7 +36,7 @@ jobs:
       #- run: make lint
       - run: make test
   coverage:
-    needs: [ check ]
+    needs: [ test ]
     name: coverage
     runs-on: ubuntu-latest
     steps:
