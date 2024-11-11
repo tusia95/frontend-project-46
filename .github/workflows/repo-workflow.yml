@@ -17,7 +17,7 @@ jobs:
       - run: make lint
       - run: make tests
   coverage:
-    needs: [ test ]
+    needs: [ check ]
     name: coverage
     runs-on: ubuntu-latest
     steps:
