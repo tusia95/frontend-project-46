@@ -2,6 +2,7 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from "url";
 import { genDiff } from "../src/helpers/compareObjects.js";
 import { readFile } from "../src/helpers/files.js";
+import { params } from "../__fixtures__/params.js";
 
 
 let __filename;
@@ -15,33 +16,11 @@ beforeEach(() => {
 
 });
 
-test("check compare files", () => {
-  let obj1 = JSON.parse(readFile(getFixturePath('file1.json')));
-  let obj2 = JSON.parse(readFile(getFixturePath('file2.json')));
 
-  expect(genDiff(obj1, obj2)).toEqual([
-    { key: 'follow', value: false, type: 'deleted' },
-    { key: 'host', value: 'hexlet.io', type: 'unchanged' },
-    { key: 'proxy', value: '123.234.53.22', type: 'deleted' },
-    { key: 'timeout', value1: 50, value2: 20, type: 'changed' },
-    { key: 'verbose', value: true, type: 'added' }
-  ]);
-
-  obj1 = JSON.parse(readFile(getFixturePath('file2.json')));
-  obj2 = obj1;
-  expect(genDiff(obj1, obj2)).toEqual([
-    { key: 'host', value: 'hexlet.io', type: 'unchanged' },
-    { key: 'timeout', value: 20, type: 'unchanged' },
-    { key: 'verbose', value: true, type: 'unchanged' }
-  ]);
-
-  obj1 = JSON.parse(readFile(getFixturePath('file1.json')));
-  obj2 = JSON.parse(readFile(getFixturePath('empty_json.json')));
-  expect(genDiff(obj1, obj2)).toEqual([
-    { key: 'follow', value: false, type: 'deleted' },
-    { key: 'host', value: 'hexlet.io', type: 'deleted' },
-    { key: 'proxy', value: "123.234.53.22", type: 'deleted' },
-    { key: 'timeout', value: 50, type: 'deleted'},
-  ]);
-
+params.forEach(({ filename1, filename2, expected}) => {
+  test("check compare json files", () => {
+    const path1 = getFixturePath(filename1);
+    const path2 = getFixturePath(filename2);
+    expect(genDiff(path1, path2)).toEqual(expected);
+  })
 });

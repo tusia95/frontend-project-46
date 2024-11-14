@@ -8,3 +8,5 @@
 <a href="https://codeclimate.com/github/tusia95/frontend-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/7532a21395696b3a65d8/test_coverage" /></a>
 
 [Asciinema: compare function step 4](https://asciinema.org/a/gQx3SRbCRfdZj1GnPmeFOtOvd)
+
+[Asciinema: compare yamls step 6](https://asciinema.org/a/1REQ8WUgTCVzgv5muARTdbKcm)

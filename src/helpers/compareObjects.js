@@ -1,6 +1,37 @@
 import _ from "lodash";
+import fs from 'fs';
+import { getAbsoluteFilePath, getFileExtension } from "./files.js";
+import { jsonParser, yamlParser } from "./parsers.js";
 
-const genDiff = (obj1, obj2) => {
+const genDiff = (filepath1, filepath2) => {
+  const ext1 = getFileExtension(filepath1);
+  debugger;
+  const ext2 = getFileExtension(filepath2);
+  let ext;
+  if(ext1 === ext2) {
+    ext = ext1;
+  } else {
+    throw new Error('Files have different extension, couldn`t compare')
+  }
+  const absolutePath1 = getAbsoluteFilePath(filepath1);
+  const absolutePath2 = getAbsoluteFilePath(filepath2);
+
+  let obj1;
+  let obj2;
+  const file1Data = fs.readFileSync(absolutePath1, 'utf8');
+  const file2Data = fs.readFileSync(absolutePath2, 'utf8');
+  switch (ext) {
+    case 'json':
+      obj1 = jsonParser(file1Data);
+      obj2 = jsonParser(file2Data);
+      break;
+    case 'yaml' || 'yml':
+      obj1 = yamlParser(file1Data);
+      obj2 = yamlParser(file2Data);
+      break;
+  }
+
+
   const compareResult = [];
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);

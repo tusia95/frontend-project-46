@@ -5,19 +5,13 @@ import fs from 'node:fs';
 
 const getAbsoluteFilePath = (relativePath) => path.resolve(cwd(), relativePath);
 
-const readFile = (absolutePath) => {
-  if (fs.existsSync(absolutePath)) {
-    return fs.readFileSync(absolutePath, 'utf8');
-  }
-  throw new Error(`File with path ${absolutePath} doesn't exist`);
-};
 
 const getFileExtension = (filePath) => {
   if (fs.existsSync(filePath)) {
-    return path.extname(filePath);
+    return path.extname(filePath).slice(1);
   }
   console.log('File does not exist');
   return null;
 };
 
-export { getAbsoluteFilePath, readFile, getFileExtension };
+export { getAbsoluteFilePath, getFileExtension };
