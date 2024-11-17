@@ -11,7 +11,7 @@ program.option('-v, --version', 'output the version number')
   .description('Compares two configuration files and shows a difference.')
   .action((filepath1, filepath2, options,) => {
    // const filePath = 'src/data/file1.json'
-    console.log(createView(genDiff(filepath1, filepath2)));
+    console.log(genDiff(filepath1, filepath2));
 });
 
 program.parse(process.argv);

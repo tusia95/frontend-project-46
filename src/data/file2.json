@@ -1,5 +1,13 @@
 {
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io"
+  "common": {
+    "setting4": false,
+    "setting2": {
+      "key5": "value5"
+    },
+    "setting3": {
+      "doge": {
+        "wow": "so much"
+      }
+    }
+  }
 }
