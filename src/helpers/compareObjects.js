@@ -31,36 +31,38 @@ const genDiff = (filepath1, filepath2) => {
       break;
   }
 
-
   const compareResult = [];
-  const getCompareObject = (obj1, obj2, depth) => {
+
+  const getCompareObject = (obj1, obj2, parent) => {
       const keys1 = Object.keys(obj1);
       const keys2 = Object.keys(obj2);
+
       const keysUnion = _.union(keys1, keys2);
-      for (const key of keysUnion) {
-        if(typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
-          getCompareObject(obj1[key], obj2[key],  depth + 1);
-        }
+      const result = keysUnion.flatMap((key)=> {
+        if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+        return getCompareObject(obj1[key], obj2[key], key);
+      }
         if (keys1.includes(key) && keys2.includes(key)) {
           if (obj1[key] === obj2[key]) {
-            compareResult.push({key, value: obj1[key], type: 'unchanged'});
+            return { key, value: obj1[key], type: 'unchanged', parent};
           }
           if (obj1[key] !== obj2[key]) {
-            compareResult.push({key, value1: obj1[key], value2: obj2[key], type: 'changed'});
+           return {key, value1: obj1[key], value2: obj2[key], type: 'changed', parent};
           }
         }
         if (keys1.includes(key) && !keys2.includes(key)) {
-          compareResult.push({key, value: obj1[key], type: 'deleted'});
+          return { key, value: obj1[key], type: 'deleted', parent };
         }
 
         if (!keys1.includes(key) && keys2.includes(key)) {
-          compareResult.push({key, value: obj2[key], type: 'added'});
+           return { key, value: obj2[key], type: 'added', parent };
         }
-      }
-      return compareResult;
-    }
+      });
+      return result;
+  }
+
   const result = getCompareObject(obj1, obj2, 0);
-  console.log(result,'RES');
+  console.log(result, 'RES')
   // return _.sortBy(compareResult, [function (o) {
   //   return o.key;
   // }]);

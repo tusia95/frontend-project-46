@@ -1,6 +1,6 @@
 {
   "common": {
-    "setting1": "Value 1",
+    "setting4": 123,
     "setting2": {
       "key5": "value5"
     },
